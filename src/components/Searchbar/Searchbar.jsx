@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { Header, Form, Input, Button } from './Searchbar.styled';
 
 // Refactoring code using React-Hooks
-const Searchbar = onSubmit => {
+const Searchbar = ({ onSubmit }) => {
   const [value, setValue] = useState('');
   // state = {
   //   imageName: '',

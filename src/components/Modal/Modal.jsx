@@ -20,11 +20,11 @@ const Modal = ({ onClose, largeImageURL, tags }) => {
     };
 
     window.addEventListener('keydown', handleKeyDown());
-    document.body.style.overflow = 'hidden';
+    // document.body.style.overflow = 'hidden';
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown());
-      document.body.style.overflow = 'auto';
+      // document.body.style.overflow = 'auto';
     };
   }, [onClose]);
 

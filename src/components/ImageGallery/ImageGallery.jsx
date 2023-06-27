@@ -22,7 +22,7 @@ const ImageGallery = ({ imageSearchName }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({ largeImageURL: '', tags: '' });
 
-  console.log('error:', error);
+  // console.log('error:', error);
   // state = {
   //   images: [],
   //   error: null,
@@ -40,30 +40,37 @@ const ImageGallery = ({ imageSearchName }) => {
       setTotalPage(0);
       setStatus('pending');
     }
+
     if (imageName !== imageSearchName || page !== 1) {
-      try {
-        const response = galleryAPI.fetchImages(imageName, page);
-        const { total, hits, totalHits } = response;
-        if (total === 0) {
-          setImages([]);
-          setStatus('resolved');
-          toast.warn(
-            'Sorry, there are no images matching your search query. Please try again.'
-          );
-          return;
-        }
-        setImages(prevImages =>
-          page === 1 ? [...hits] : [...prevImages, ...hits]
-        );
-        setTotalPage(Math.ceil(totalHits / 12));
-        setStatus('resolved');
-      } catch (error) {
-        setError(error);
-        setStatus('rejected');
-        toast.error(
-          'Oops! Something went wrong. Please, reload the page and try again.'
-        );
+      if (!imageSearchName) {
+        return;
       }
+      const fetchGallery = async () => {
+        try {
+          const response = await galleryAPI.fetchImages(imageSearchName, page);
+          const { total, hits, totalHits } = response;
+          if (total === 0) {
+            setImages([]);
+            setStatus('resolved');
+            toast.warn(
+              'Sorry, there are no images matching your search query. Please try again.'
+            );
+            return;
+          }
+          setImages(prevImages =>
+            page === 1 ? hits : [...prevImages, ...hits]
+          );
+          setTotalPage(Math.ceil(totalHits / 12));
+          setStatus('resolved');
+        } catch (error) {
+          setError(error);
+          setStatus('rejected');
+          toast.error(
+            'Oops! Something went wrong. Please, reload the page and try again.'
+          );
+        }
+      };
+      fetchGallery();
     }
   }, [imageName, page, imageSearchName]);
 
@@ -113,11 +120,14 @@ const ImageGallery = ({ imageSearchName }) => {
 
   const derivedModalData = modalData => {
     setModalData(modalData);
+    // setShowModal(!showModal);
     setShowModal(true);
   };
 
   const toggleModal = () => {
-    setShowModal(showModal => !showModal);
+    setShowModal(false);
+    // setShowModal(!showModal);
+    // setShowModal(prevShowModal => !prevShowModal);
   };
 
   // render() {
@@ -143,6 +153,17 @@ const ImageGallery = ({ imageSearchName }) => {
     );
   }
 
+  // if (status === 'resolved' && images.length === 0) {
+  //   return (
+  //     <ImageErrorView
+  //       imageURL={imageErrorView}
+  //       alt={'Crying meme'}
+  //       width="340"
+  //       message={`Sorry, we can't find images of ${imageSearchName}.`}
+  //     />
+  //   );
+  // }
+
   if (status === 'resolved') {
     if (images.length === 0) {
       return (
@@ -150,7 +171,7 @@ const ImageGallery = ({ imageSearchName }) => {
           imageURL={imageErrorView}
           alt={'Crying meme'}
           width="340"
-          message={`Sorry, we can't find images of ${this.props.imageName}.`}
+          message={`Sorry, we can't find images of ${imageSearchName}.`}
         />
       );
     }
@@ -178,7 +199,7 @@ const ImageGallery = ({ imageSearchName }) => {
 };
 
 ImageGallery.propTypes = {
-  imageName: PropTypes.string.isRequired,
+  imageSearchName: PropTypes.string.isRequired,
 };
 
 export default ImageGallery;

@@ -26,7 +26,7 @@ const App = () => {
   return (
     <Container>
       <Searchbar onSubmit={handleFormSubmit} />
-      <ImageGallery imageName={value} />
+      <ImageGallery imageSearchName={value} />
       <ToastContainer
         position="top-right"
         autoClose={3000}
