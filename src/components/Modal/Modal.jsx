@@ -14,21 +14,24 @@ const modalRoot = document.querySelector('#modal-root');
 const Modal = ({ onClose, largeImageURL, tags }) => {
   useEffect(() => {
     const handleKeyDown = event => {
+      console.log('event.code:', event.code);
       if (event.code === 'Escape') {
         onClose();
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown());
+    window.addEventListener('keydown', handleKeyDown);
     // document.body.style.overflow = 'hidden';
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown());
+      window.removeEventListener('keydown', handleKeyDown);
       // document.body.style.overflow = 'auto';
     };
   }, [onClose]);
 
   const handleBackdropClick = event => {
+    console.log('currentTarget: ', event.currentTarget);
+    console.log('target: ', event.target);
     if (event.currentTarget === event.target) {
       onClose();
     }
@@ -61,7 +64,7 @@ const Modal = ({ onClose, largeImageURL, tags }) => {
 
   // Виносимо модалку і рендеримо в портал для модалок в #modal-root
   return createPortal(
-    <Overlay onClick={handleBackdropClick()}>
+    <Overlay onClick={handleBackdropClick}>
       <ModalWindow>
         <ModalImage src={largeImageURL} alt={tags} />
         <ModalDescription>{tags}</ModalDescription>
