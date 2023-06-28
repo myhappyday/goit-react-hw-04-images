@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Item, Image } from './ImageGalleryItem.styled';
+import React from "react";
+import PropTypes from "prop-types";
+import { Item, Image } from "./ImageGalleryItem.styled";
 
 const ImageGalleryItem = ({ imageURL, tags, largeImageURL, onImageClick }) => {
   // const [modalData, setModalData] = useState({ largeImageURL: '', tags: '' });
-  console.log('largeImageURL:', largeImageURL);
-  console.log('tags:', tags);
-  console.log('onImageClick:', onImageClick);
+  console.log("largeImageURL:", largeImageURL);
+  console.log("tags:", tags);
+  console.log("onImageClick:", onImageClick);
   return (
     <Item
-      onClick={event => {
+      onClick={(event) => {
         event.preventDefault();
-        onImageClick(() => ({ largeImageURL: largeImageURL, tags: tags }));
+        () => onImageClick({ largeImageURL, tags });
         // onImageClick({ largeImageURL, tags });
       }}
     >
