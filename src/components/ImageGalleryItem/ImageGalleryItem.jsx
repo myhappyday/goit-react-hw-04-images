@@ -9,11 +9,12 @@ const ImageGalleryItem = ({ imageURL, tags, largeImageURL, onImageClick }) => {
   console.log("onImageClick:", onImageClick);
   return (
     <Item
-      onClick={(event) => {
-        event.preventDefault();
-        () => onImageClick({ largeImageURL, tags });
-        // onImageClick({ largeImageURL, tags });
-      }}
+      onClick={() => onImageClick({ largeImageURL, tags })}
+      // onClick={(event) => {
+      //   event.preventDefault();
+      //   () => onImageClick({ largeImageURL, tags });
+      //   // onImageClick({ largeImageURL, tags });
+      // }}
     >
       <Image src={imageURL} alt={tags} loading="lazy" />
     </Item>
