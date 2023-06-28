@@ -1,37 +1,38 @@
-import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import PropTypes from 'prop-types';
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
+import PropTypes from "prop-types";
 import {
   Overlay,
   ModalWindow,
   ModalImage,
   ModalDescription,
-} from './Modal.styled';
+} from "./Modal.styled";
 
-const modalRoot = document.querySelector('#modal-root');
+const modalRoot = document.querySelector("#modal-root");
 
 // Refactoring code using React-Hooks
-const Modal = ({ onClose, largeImageURL, tags }) => {
+const Modal = ({ onClose, modalData }) => {
+  const { largeImageURL, tags } = modalData;
   useEffect(() => {
-    const handleKeyDown = event => {
-      console.log('event.code:', event.code);
-      if (event.code === 'Escape') {
+    const handleKeyDown = (event) => {
+      console.log("event.code:", event.code);
+      if (event.code === "Escape") {
         onClose();
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
     // document.body.style.overflow = 'hidden';
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
       // document.body.style.overflow = 'auto';
     };
   }, [onClose]);
 
-  const handleBackdropClick = event => {
-    console.log('currentTarget: ', event.currentTarget);
-    console.log('target: ', event.target);
+  const handleBackdropClick = (event) => {
+    console.log("currentTarget: ", event.currentTarget);
+    console.log("target: ", event.target);
     if (event.currentTarget === event.target) {
       onClose();
     }

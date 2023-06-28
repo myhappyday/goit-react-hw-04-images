@@ -128,8 +128,8 @@ const ImageGallery = ({ imageSearchName }) => {
   };
 
   const toggleModal = () => {
-    setShowModal(false);
-    // setShowModal(!showModal);
+    // setShowModal(false);
+    setShowModal(!showModal);
     // setShowModal(prevShowModal => !prevShowModal);
   };
 
@@ -188,9 +188,7 @@ const ImageGallery = ({ imageSearchName }) => {
                 imageURL={webformatURL}
                 tags={tags}
                 largeImageURL={largeImageURL}
-                onImageClick={() =>
-                  derivedModalData({ largeImageURL: largeImageURL, tags: tags })
-                }
+                onImageClick={() => derivedModalData({ largeImageURL, tags })}
               />
             );
           })}
