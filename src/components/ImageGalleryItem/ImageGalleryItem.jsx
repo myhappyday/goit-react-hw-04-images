@@ -9,7 +9,7 @@ const ImageGalleryItem = ({ imageURL, tags, largeImageURL, onImageClick }) => {
   console.log("onImageClick:", onImageClick);
   return (
     <Item
-      onClick={() => onImageClick({ largeImageURL, tags })}
+      onClick={() => onImageClick(largeImageURL, tags)}
       // onClick={(event) => {
       //   event.preventDefault();
       //   () => onImageClick({ largeImageURL, tags });
