@@ -54,7 +54,6 @@ const ImageGallery = ({ imageSearchName }) => {
           toast.error(
             "Oops! Something went wrong. Please, reload the page and try again."
           );
-          console.log("error:", error);
           // console.error(error.message);
         }
       };
@@ -84,6 +83,7 @@ const ImageGallery = ({ imageSearchName }) => {
   }
 
   if (status === "rejected") {
+    console.log("error:", error);
     return (
       <ImageErrorView
         imageURL={imageError}
