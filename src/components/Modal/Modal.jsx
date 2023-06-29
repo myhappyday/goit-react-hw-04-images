@@ -15,7 +15,6 @@ const Modal = ({ onClose, modalData }) => {
   const { largeImageURL, tags } = modalData;
   useEffect(() => {
     const handleKeyDown = event => {
-      console.log('event.code:', event.code);
       if (event.code === 'Escape') {
         onClose();
       }
